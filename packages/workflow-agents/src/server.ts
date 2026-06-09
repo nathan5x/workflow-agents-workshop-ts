@@ -1,5 +1,5 @@
 /**
- * Pattern 3 — gateway (web service).
+ * Pattern 3 - gateway (web service).
  *
  * A Hono server that turns inbound PR submissions / GitHub webhooks into Render
  * Workflow runs, and serves the shared telemetry viewer.
@@ -184,7 +184,7 @@ export async function createApp(): Promise<Hono> {
 
   // The same telemetry viewer as Patterns 1 & 2 (reviews + findings + spans).
   // Deep per-agent traces live in the Render Dashboard.
-  app.route("/", createUiRouter("Pattern 3 — Workflow agents"));
+  app.route("/", createUiRouter("localhost Workshop: Workflow Agents"));
 
   const dispatchMode = useInProcess
     ? "in-process"

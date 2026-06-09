@@ -1,5 +1,5 @@
 /**
- * Pattern 1 — Naive agent.
+ * Pattern 1 - Naive agent.
  *
  * One web service. The code-review agent runs *in-process, inside the request*:
  * the POST handler awaits the whole pipeline before responding. Simple
@@ -57,7 +57,7 @@ export function createApp(): Hono {
   })
 
   // Telemetry viewer (page + read APIs) at the root.
-  app.route('/', createUiRouter('Pattern 1 — Naive agent'))
+  app.route('/', createUiRouter('localhost Workshop: Naive Agent'))
 
   return app
 }

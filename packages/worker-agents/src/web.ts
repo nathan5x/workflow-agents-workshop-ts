@@ -49,7 +49,7 @@ export function createApp(): Hono {
     })
   })
 
-  app.route('/', createUiRouter('worker-agents'))
+  app.route('/', createUiRouter('localhost Workshop: Worker Agents'))
 
   return app
 }

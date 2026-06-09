@@ -5,14 +5,28 @@
  *
  *   app.route('/', createUiRouter('naive-agent'))
  */
+import { readFile } from 'node:fs/promises'
 import { Hono } from 'hono'
 import { getFindings, getReview, getSpans, listReviews } from '@workshop/db'
 import { dashboardHtml } from './page.js'
 
+const stylesPath = new URL('../public/styles.css', import.meta.url)
+const logoPath = new URL('../public/render_logo_white.svg', import.meta.url)
+
 export function createUiRouter(title: string): Hono {
   const app = new Hono()
 
-  app.get('/', (c) => c.html(dashboardHtml(title)))
+  app.get('/', async (c) => c.html(await dashboardHtml(title)))
+
+  app.get('/dashboard.css', async (c) => {
+    const css = await readFile(stylesPath, 'utf-8')
+    return c.body(css, 200, { 'content-type': 'text/css; charset=utf-8' })
+  })
+
+  app.get('/render-logo.svg', async (c) => {
+    const svg = await readFile(logoPath, 'utf-8')
+    return c.body(svg, 200, { 'content-type': 'image/svg+xml; charset=utf-8' })
+  })
 
   app.get('/api/reviews', async (c) => c.json(await listReviews(50)))
 
