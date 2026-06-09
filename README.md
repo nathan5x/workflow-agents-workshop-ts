@@ -67,6 +67,9 @@ Patterns 1 and 2 use Blueprints:
 - [`packages/naive-agent/render.yaml`](packages/naive-agent/render.yaml) — Web Service + Postgres
 - [`packages/worker-agents/render.yaml`](packages/worker-agents/render.yaml) — Web Service + Background Worker + Key Value + Postgres
 
+Each Blueprint creates its own Render project with a `production` environment, so
+the services and datastores for each pattern stay grouped in the Dashboard.
+
 Pattern 3 uses both:
 
 - [`packages/workflow-agents/render.yaml`](packages/workflow-agents/render.yaml) creates the web service and Postgres database

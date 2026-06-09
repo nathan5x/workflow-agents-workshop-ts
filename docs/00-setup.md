@@ -60,6 +60,9 @@ repo is visible. Patterns 1 and 2 deploy from Blueprints inside this repo:
 - [`packages/naive-agent/render.yaml`](../packages/naive-agent/render.yaml)
 - [`packages/worker-agents/render.yaml`](../packages/worker-agents/render.yaml)
 
+Each Blueprint creates a Render project with a `production` environment, keeping
+that pattern's services and datastores grouped together.
+
 Pattern 3 uses a Blueprint for its web service and database, then the CLI for its
 Workflow service.
 

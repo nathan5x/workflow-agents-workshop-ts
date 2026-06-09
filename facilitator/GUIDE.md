@@ -267,6 +267,9 @@ makes Pattern 3 land harder.
   Use [`docs/03-workflow-agents.md`](../docs/03-workflow-agents.md) for the full
   command block. Call out the required env-var step plainly: the web service and
   Workflow service need the same Postgres connection string.
+  If using the Dashboard form, set Root Directory to `packages/workflow-agents`,
+  Build Command to `cd ../.. && npm ci`, and Start Command to
+  `cd ../.. && npm run start:workflow --workspace @workshop/workflow-agents`.
 - **Show the code that matters:**
   - [`agentTask.ts`](../packages/workflow-agents/src/agentTask.ts): the *entire*
     bridge — `task(agent.name, ({input}) => agent.run(input, ...))`. One function.
@@ -285,6 +288,10 @@ makes Pattern 3 land harder.
 - **Pitfall:** if a live task list is empty, the Workflow version might not be
   released yet, or the workflow didn't auto-discover. It must be
   `src/workflows/<name>/index.ts` exporting a `task()`.
+- **Pitfall:** if the Workflow service can't find `tsx` or workspace packages, the
+  root directory/commands are wrong. The Workflow root should be
+  `packages/workflow-agents`, and both build/start commands should `cd ../..`
+  before running npm.
 - **CFU:** "Where are the retries in Pattern 3?" (In the task's config object —
   compare to the hand-written retry you wrote in Lab 1.)
 

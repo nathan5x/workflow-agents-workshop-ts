@@ -65,16 +65,18 @@ After the Blueprint sync finishes, open the database's connection details and co
 the internal connection string. You'll pass it to the Workflow service so task
 runs write spans to the same telemetry database.
 
-Create the Workflow service with the CLI:
+Create the Workflow service with the CLI. This is a separate Render resource, so
+it does not inherit build commands, start commands, or env vars from the Blueprint:
 
 ```sh
 render workflows create \
   --name workflow-agents \
   --repo <your-repo-url> \
   --branch <your-branch> \
+  --root-directory packages/workflow-agents \
   --runtime node \
-  --build-command "npm install" \
-  --run-command "npm run start:workflow --workspace @workshop/workflow-agents" \
+  --build-command "cd ../.. && npm ci" \
+  --run-command "cd ../.. && npm run start:workflow --workspace @workshop/workflow-agents" \
   --env-var DATABASE_URL=<internal-postgres-connection-string> \
   --env-var NODE_ENV=production \
   --output json \
@@ -84,6 +86,18 @@ render workflows create \
 If you're using real model output or private GitHub PRs, add
 `ANTHROPIC_API_KEY`, `OPENAI_API_KEY`, or `GITHUB_TOKEN` to the Workflow service
 with additional `--env-var` flags.
+
+If you create the Workflow service in the Dashboard, use the same values:
+
+| Field | Value |
+| --- | --- |
+| Root Directory | `packages/workflow-agents` |
+| Build Command | `cd ../.. && npm ci` |
+| Start Command | `cd ../.. && npm run start:workflow --workspace @workshop/workflow-agents` |
+
+The root directory keeps auto-deploys scoped to the Workflow package. The commands
+hop back to the monorepo root so npm can read the root `package-lock.json` and
+install workspace dependencies.
 
 ## Trigger a live task
 
