@@ -12,6 +12,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Refuse upstream main
+        if: ${{ (github.repository_owner == 'render-lab' || github.repository_owner == 'render-examples') && github.ref_name == 'main' }}
+        run: |
+          echo "This setup workflow is for attendee forks."
+          echo "Refusing to namespace Blueprints on ${GITHUB_REPOSITORY} main."
+          exit 1
+
       - name: Check out repository
         uses: actions/checkout@v4
 
