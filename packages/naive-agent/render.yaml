@@ -1,16 +1,16 @@
 projects:
-  - name: nathan5x-agents-workshop-naive
+  - name: agents-workshop-naive
     environments:
       - name: production
         databases:
-          - name: nathan5x-naive-agent-db
+          - name: naive-agent-db
             plan: basic-256mb
             region: oregon
             postgresMajorVersion: "18"
 
         services:
           - type: web
-            name: nathan5x-naive-agent
+            name: naive-agent
             runtime: node
             region: oregon
             plan: starter
@@ -20,7 +20,7 @@ projects:
             envVars:
               - key: DATABASE_URL
                 fromDatabase:
-                  name: nathan5x-naive-agent-db
+                  name: naive-agent-db
                   property: connectionString
               - key: ANTHROPIC_API_KEY
                 sync: false
